@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RIT Enrollment & Calendar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="brand">RIT Enrollment & Class Calendar</h1>
+      <p class="tagline">Enroll students and plan classes without conflicts</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Enrollment -->
+    <section class="card">
+      <h2>New Enrollment</h2>
+      <form id="enrollForm" novalidate>
+        <div class="grid">
+          <label>
+            <span>Full Name</span>
+            <input type="text" name="name" placeholder="e.g., Alex Johnson" required />
+            <small class="error"></small>
+          </label>
+
+          <label>
+            <span>RIT Email</span>
+            <input type="email" name="email" placeholder="name@rit.edu" required />
+            <small class="error"></small>
+          </label>
+
+          <label>
+            <span>Program / Major</span>
+            <input type="text" name="major" placeholder="e.g., Computing & Information Sciences" required />
+            <small class="error"></small>
+          </label>
+
+          <label>
+            <span>Year</span>
+            <select name="year" required>
+              <option value="">Select year</option>
+              <option>Freshman</option>
+              <option>Sophomore</option>
+              <option>Junior</option>
+              <option>Senior</option>
+              <option>Graduate</option>
+            </select>
+            <small class="error"></small>
+          </label>
+
+          <label class="span-2">
+            <span>Notes</span>
+            <textarea name="notes" rows="3" placeholder="Optional"></textarea>
+            <small class="error"></small>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary">Add Enrollment</button>
+          <button type="reset" class="btn">Clear</button>
+        </div>
+      </form>
+
+      <div class="table-wrap">
+        <table id="enrollTable">
+          <thead>
+            <tr>
+              <th>Name</th><th>Email</th><th>Major</th><th>Year</th><th>Notes</th><th class="col-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="enrollBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Classes -->
+    <section class="card">
+      <h2>Add Class</h2>
+      <form id="classForm" novalidate>
+        <div class="grid">
+          <label>
+            <span>Course Title</span>
+            <input type="text" name="title" placeholder="e.g., Data Structures" required />
+            <small class="error"></small>
+          </label>
+
+          <label>
+            <span>Location</span>
+            <input type="text" name="location" placeholder="e.g., GOL-1400" />
+            <small class="error"></small>
+          </label>
+
+          <label>
+            <span>Day</span>
+            <select name="day" required>
+              <option value="">Select day</option>
+              <option>Monday</option>
+              <option>Tuesday</option>
+              <option>Wednesday</option>
+              <option>Thursday</option>
+              <option>Friday</option>
+              <option>Saturday</option>
+              <option>Sunday</option>
+            </select>
+            <small class="error"></small>
+          </label>
+
+          <label>
+            <span>Start Time</span>
+            <input type="time" name="start" required />
+            <small class="error"></small>
+          </label>
+
+          <label>
+            <span>End Time</span>
+            <input type="time" name="end" required />
+            <small class="error"></small>
+          </label>
+
+          <label>
+            <span>Color (optional)</span>
+            <input type="color" name="color" value="#F76902" />
+            <small class="error"></small>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary">Add Class</button>
+          <button type="reset" class="btn">Clear</button>
+        </div>
+      </form>
+
+      <div class="muted small">New classes will be checked for conflicts on the same day. Overlaps will be blocked with a warning.</div>
+
+      <div class="table-wrap">
+        <table id="classTable">
+          <thead>
+            <tr>
+              <th>Course</th><th>Day</th><th>Start</th><th>End</th><th>Location</th><th class="col-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="classBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Calendar -->
+    <section class="card">
+      <div class="cal-header">
+        <h2>Weekly Calendar</h2>
+        <div class="cal-legend">
+          <span class="legend orange"></span> RIT Orange
+          <span class="legend gray"></span> Grid
+        </div>
+      </div>
+
+      <div id="calendar" class="calendar" aria-label="Weekly class calendar">
+        <!-- Days header -->
+        <div class="cal-days">
+          <div class="corner"></div>
+          <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+        </div>
+        <!-- Hours rail + grid -->
+        <div class="cal-body">
+          <div class="cal-hours" id="hoursRail"></div>
+          <div class="cal-grid" id="gridArea"></div>
+          <div class="cal-events" id="eventsArea"></div>
+        </div>
+      </div>
+      <div class="muted small">Calendar shows 8:00–20:00. Blocks outside that range won’t fit.</div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>&copy; <span id="year"></span> RIT • Demo only</small>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
